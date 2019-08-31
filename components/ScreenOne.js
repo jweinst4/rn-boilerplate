@@ -57,13 +57,12 @@ class ScreenOne extends React.Component {
                     this.clickedNextOnScreenOne}
                 />
                 <Text onPress={() => {
-                    this.plusOnScreenOne()
+                    this.plusOnScreenOne(this.state.counter)
                 }}>Plus</Text>
                 <Text onPress={() => {
                     this.minusOnScreenOne()
                 }}>Minus</Text>
-                <Counter counter={this.state.counter} />
-
+                <Text>{this.state.counter}</Text>
             </View>
         )
     }

@@ -8,16 +8,14 @@ class ScreenThree extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      counter: '',
+  
     }
     this.plusOnScreenThree = this.plusOnScreenThree.bind(this)
     this.minusOnScreenThree = this.minusOnScreenThree.bind(this)
   }
 
   componentDidMount() {
-    console.log(this.props.navigation.state);
-    let currentCounter = this.props.navigation.getParam('counter')
-    this.setState({ counter: currentCounter });
+
   }
 
   plusOnScreenThree() {
@@ -26,7 +24,8 @@ class ScreenThree extends React.Component {
   }
 
   minusOnScreenThree() {
-    this.setState({ counter: this.state.counter - 1 })
+    const { params } = this.props.navigation.state;
+    params.decreaseCounter();
   }
 
   render() {
@@ -34,16 +33,13 @@ class ScreenThree extends React.Component {
     return (
       <View>
         <Text>ScreenThree</Text>
-        <Button title='next' onPress={
-          this.clickedNextOnScreenThree}
-        />
         <Text onPress={() => {
           this.plusOnScreenThree()
         }}>Plus</Text>
         <Text onPress={() => {
           this.minusOnScreenThree()
         }}>Minus</Text>
-        <Counter counter={this.state.counter} />
+        <Text>{this.props.navigation.getParam('counter')}</Text>
       </View>
     )
   }

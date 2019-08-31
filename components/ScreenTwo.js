@@ -8,7 +8,7 @@ class ScreenTwo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      counter: '',
+      counterOnTwo: '',
     }
     this.clickedNextOnScreenTwo = this.clickedNextOnScreenTwo.bind(this)
     this.plusOnScreenTwo = this.plusOnScreenTwo.bind(this)
@@ -18,7 +18,7 @@ class ScreenTwo extends React.Component {
   componentDidMount() {
     console.log(this.props.navigation.getParam('counter'))
     let currentCounter = this.props.navigation.getParam('counter')
-    this.setState({ counter: currentCounter });
+    this.setState({ counterOnTwo: currentCounter });
   }
 
   clickedNextOnScreenTwo() {
@@ -27,10 +27,9 @@ class ScreenTwo extends React.Component {
     this.props.navigation.navigate({
       routeName: 'ThirdScreen', params: {
         screenId: 'came from screen two',
-        counter: this.state.counter,
+        counter: this.state.counterOnTwo,
         increaseCounter: this.props.navigation.getParam('increaseCounter'),
         decreaseCounter: this.props.navigation.getParam('decreaseCounter'),
-
       }
     })
   }
@@ -38,13 +37,17 @@ class ScreenTwo extends React.Component {
   plusOnScreenTwo() {
     const { params } = this.props.navigation.state;
     params.increaseCounter();
+    
   }
 
   minusOnScreenTwo() {
-    this.setState({ counter: this.state.counter - 1 })
+    const { params } = this.props.navigation.state;
+    params.decreaseCounter();
   }
 
   render() {
+
+console.log(this.props.navigation.getParam('counter'));
 
     return (
       <View>
@@ -58,7 +61,7 @@ class ScreenTwo extends React.Component {
         <Text onPress={() => {
           this.minusOnScreenTwo()
         }}>Minus</Text>
-        <Counter counter={this.state.counter} />
+        <Text>{this.state.counterOnTwo}</Text>
       </View>
     )
   }
