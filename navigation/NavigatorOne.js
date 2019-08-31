@@ -5,7 +5,7 @@ import ScreenTwo from '../components/ScreenTwo';
 import ScreenThree from '../components/ScreenThree';
 
 const ScreenNavigator = createStackNavigator({
-   LandingScreen:  ScreenOne,
+   LandingScreen: ScreenOne,
    SecondScreen: ScreenTwo,
    ThirdScreen: ScreenThree,
 });
