@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, View, Button, Platform } from 'react-native';
 
-import Counter from '../components/Counter';
-
 class ScreenTwo extends React.Component {
 
   constructor(props) {
@@ -16,7 +14,6 @@ class ScreenTwo extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.navigation.getParam('counter'))
     let currentCounter = this.props.navigation.getParam('counter')
     this.setState({ counterOnTwo: currentCounter });
   }
@@ -36,8 +33,7 @@ class ScreenTwo extends React.Component {
 
   plusOnScreenTwo() {
     const { params } = this.props.navigation.state;
-    params.increaseCounter();
-    
+    params.increaseCounter();    
   }
 
   minusOnScreenTwo() {

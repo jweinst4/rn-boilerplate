@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, Button, View, FlatList, Platform, TextInput, StyleSheet } from 'react-native';
+import { Button, View, Platform, StyleSheet } from 'react-native';
 
 import Counter from '../components/Counter';
+import InputSection from '../components/InputSection';
+import DisplaySection from '../components/DisplaySection';
 
 class ScreenOne extends React.Component {
 
@@ -72,38 +74,17 @@ class ScreenOne extends React.Component {
     }
 
     render() {
-        console.log(this.state.submittedTextArray)
         return (
             <View style={styles.container}>
-                <View style={styles.topThird}>
-                    <Text>ScreenOne</Text>
-                    <Text onPress={() => {
-                        this.plusOnScreenOne(this.state.counter)
-                    }}>Plus</Text>
-                    <Text onPress={() => {
-                        this.minusOnScreenOne()
-                    }}>Minus</Text>
-                    <Text>{this.state.counter}</Text>
-                </View>
-                <View style={styles.middleThird}>
-                    <Text> Enter String Below:</Text>
-                    <TextInput style={styles.inputForm} onChangeText={this.handleInputChange} value={this.state.enteredText} />
-                    <Button title='Submit String' onPress={this.submitEnteredText} />
-                    <Text>Entered String: {this.state.enteredText}</Text>
-                </View>
-                <View style={styles.bottomThird}>
-                    {this.state.submittedTextArray.map((item, index) => {
-                        return (
-                            <View key={item.id} index={index} style={styles.submittedStringContainer}>
-                                <Text style={styles.submittedStringValue} onPress={() => {
-                                    this.deleteItem(item)
-                                }}>
-                                    {item.value}
-                                </Text>
-                            </View>
+                <Counter counter={this.state.counter} plusOnScreenOne={this.plusOnScreenOne} minusOnScreenOne={this.minusOnScreenOne} />
 
-                        )
-                    })}
+                <View style={styles.middleThird}>
+                    <InputSection handleInputChange={this.handleInputChange} enteredText={this.state.enteredText} submitEnteredText={this.submitEnteredText} />
+
+                    <DisplaySection submittedTextArray={this.state.submittedTextArray} deleteItem={this.deleteItem} />
+                </View>
+
+                <View style={styles.bottomThird}>
                     <Button title='next' onPress={
                         this.clickedNextOnScreenOne}
                     />
@@ -140,21 +121,6 @@ const styles = StyleSheet.create({
         width: '50%',
         alignItems: 'center',
         flexDirection: 'column',
-    },
-    inputForm: {
-        borderWidth: 3,
-        borderColor: 'red',
-        width: 300,
-    },
-    topThird: {
-        height: '33%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    middleThird: {
-        height: '33%',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     bottomThird: {
         height: '33%',
