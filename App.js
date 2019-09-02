@@ -2,19 +2,11 @@ import React from 'react';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-import ScreenNavigator from './navigation/NavigatorOne';
-import mealsReducer from './store/reducers/meals';
-
-const initialState = {
-  count: 10,
-  secondTry: 20,
-}
-function reducer(state = initialState, action) {
-  return state;
-}
+import ScreenNavigator from './navigation/ScreenNavigator';
+import testReducer from './store/reducers/test';
 
 const rootReducer = combineReducers({
-  meals: mealsReducer
+  test: testReducer
 });
 
 const store = createStore(rootReducer);
