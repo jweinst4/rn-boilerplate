@@ -1,10 +1,11 @@
 
-import { TOGGLE_FAVORITE, SET_FILTERS } from '../actions/meals';
+import { TOGGLE_FAVORITE, SET_FILTERS, INCREASE_COUNTER } from '../actions/meals';
 
 const initialState = {
   meals: [1,2,3,4],
   filteredMeals: [1,2,3,4],
-  favoriteMeals: []
+  favoriteMeals: [1,2,3,4],
+  counter: 5,
 };
 
 const mealsReducer = (state = initialState, action) => {
@@ -38,7 +39,9 @@ const mealsReducer = (state = initialState, action) => {
         }
         return true;
       });
-      return { ...state, filteredMeals: updatedFilteredMeals };
+    case INCREASE_COUNTER:
+      const existingCounter = state.counter
+    return {...state,counter: existingCounter + 1};
     default:
       return state;
   }

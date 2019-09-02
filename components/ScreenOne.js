@@ -29,14 +29,14 @@ class ScreenOne extends React.Component {
         this.deleteItem = this.deleteItem.bind(this)
     }
     componentDidMount() {
-        console.log(this.props.navigation)
+    
     }
 
     clickedNextOnScreenOne() {
         console.log('clicked next on screen one')
 
         this.props.navigation.navigate({
-            routeName: 'SecondScreen', params: {
+            routeName: 'FourthScreen', params: {
                 screenId: 'came from screen one',
                 counter: this.state.counter,
                 increaseCounter: this.plusOnScreenOne,
