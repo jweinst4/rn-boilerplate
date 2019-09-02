@@ -1,12 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { increaseCounter, decreaseCounter } from '../store/actions/test';
+import { increaseCounter, decreaseCounter, addSubmittedString, deleteSubmittedString } from '../store/actions/test';
 
-const ScreenOneTest = props => {
+import DisplayArray from '../components/DisplayArray'
+import DisplayObject from '../components/DisplayObject'
+import Counter from '../components/Counter';
+import TextInputForm from '../components/TextInputForm';
+
+const ScreenOne = props => {
     const numberArray = useSelector(state => state.test.numbers);
     const counter = useSelector(state => state.test.counter);
+    const submittedStrings = useSelector(state => state.test.enteredString);
+    const [enteredString, setEnteredString] = useState('');
 
     const dispatch = useDispatch();
 
@@ -18,6 +25,16 @@ const ScreenOneTest = props => {
         dispatch(decreaseCounter(counter));
     }, [dispatch, counter]);
 
+    const addSubmittedStringHandler = useCallback(() => {
+        setEnteredString('');
+        dispatch(addSubmittedString(enteredString));
+    }, [dispatch, enteredString])
+        ;
+
+    const deletedStringHandler = useCallback((item) => {
+        dispatch(deleteSubmittedString(item));
+    }, [dispatch, enteredString]);
+
     const nextPage = () => {
         props.navigation.navigate({
             routeName: 'SecondScreen', params: {
@@ -26,30 +43,24 @@ const ScreenOneTest = props => {
         })
     }
 
+    const stringInputHandler = enteredText => {
+        setEnteredString(enteredText);
+    };
 
     return (
         <View>
             <Text>Screen One</Text>
-            {numberArray.map((item, index) => {
-                return (
-                    <View key={item} index={index}>
-
-                        <Text>
-                            {item}
-                        </Text>
-                    </View>
-
-                )
-            })}
-            <Text>Counter: {counter}</Text>
-            <Text onPress={increaseCounterHandler}>Plus</Text>
-            <Text onPress={decreaseCounterHandler}>Minus</Text>
+            <DisplayArray outputArray={numberArray} />
+            <Counter counter={counter} increaseCounterHandler={increaseCounterHandler} decreaseCounterHandler={decreaseCounterHandler} />
 
             <Button title='click next' onPress={nextPage} />
+
+            <TextInputForm stringInputHandler={stringInputHandler} enteredString={enteredString} addSubmittedStringHandler={addSubmittedStringHandler}
+            />
+
+            <DisplayObject outputArray={submittedStrings} deletedStringHandler={deletedStringHandler} />
         </View>
     );
 };
 
-
-
-export default ScreenOneTest;
+export default ScreenOne;
