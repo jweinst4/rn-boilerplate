@@ -1,11 +1,17 @@
 import React from 'react';
 import { Button, View, Platform, StyleSheet } from 'react-native';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+
 import Counter from '../components/Counter';
 import InputSection from '../components/InputSection';
 import DisplaySection from '../components/DisplaySection';
 
+
 class ScreenOne extends React.Component {
+    
+    
 
     constructor(props) {
         super(props)
@@ -23,7 +29,7 @@ class ScreenOne extends React.Component {
         this.deleteItem = this.deleteItem.bind(this)
     }
     componentDidMount() {
-
+        console.log(this.props.navigation)
     }
 
     clickedNextOnScreenOne() {

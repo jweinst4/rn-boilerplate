@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, Button, View, FlatList, Platform, TextInput, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 class Counter extends React.Component {
 
@@ -36,4 +37,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Counter;
+const mapStateToProps = (state) => ({
+  count: state.count
+})
+
+export default connect(mapStateToProps)(Counter);
