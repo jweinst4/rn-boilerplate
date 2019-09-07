@@ -1,19 +1,19 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const DisplayObject = props => {
 
     return (
         <View>
-            <Text>DisplayArray</Text>
             {props.outputArray.map((item, index) => {
                 return (
-                    <View key={item.id} index={index}>
-
-                        <Text onPress={() =>
-                            props.deletedStringHandler(item.id)}>
+                    <View key={item.id} index={index} style={styles.displayItemContainer}>
+                        <Text style={styles.displayItem}>
                             {item.value}
                         </Text>
+                        <Icon style={styles.deleteItem} onPress={() =>
+                            props.deletedStringHandler(item.id)} name="minus" style={styles.displayOperator} size={30} color='black' />
                     </View>
 
                 )
@@ -21,5 +21,19 @@ const DisplayObject = props => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    displayItemContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    displayItem: {
+        width: '50%',
+    },
+    deleteItem: {
+        width: '20%',
+    }
+
+});
 
 export default DisplayObject;

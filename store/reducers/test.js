@@ -6,7 +6,7 @@ import { DELETE_SUBMITTED_STRING } from '../actions/test';
 
 const initialState = {
   numbers: [1, 2, 3, 4],
-  counter: 5,
+  counter: 0,
   enteredString: [],
 };
 
