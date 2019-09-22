@@ -8,13 +8,13 @@ const TextInputForm = props => {
     return (
         <View>
             <TextInput
-                placeholder="Enter String Here"
-                onChangeText={props.stringInputHandler}
-                value={props.enteredString}
+                placeholder="Search for Ingredient"
+                onChangeText={props.ingredientInputHandler}
+                value={props.enteredIngredient}
                 style={styles.textInput}
             />
-            <Text style={styles.addStringText} onPress={props.addSubmittedStringHandler}>
-                Add String
+            <Text style={styles.addStringText} onPress={props.addSubmittedIngredientHandler}>
+                Add Ingredient
             </Text>
         </View >
     );
