@@ -1,20 +1,25 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TextInputForm from '../components/TextInputForm';
 import DisplayObject from '../components/DisplayObject';
 import DisplayDetails from '../components/DisplayDetails';
-import { addSubmittedIngredient, deleteSubmittedIngredient } from '../store/actions/test';
+import DisplayIngredients from '../components/DisplayIngredients';
+import { addSubmittedIngredient, addAllIngredients } from '../store/actions/test';
 
 const ScreenOne = props => {
-
+    const allIngredientsHere = useSelector(state => state.test.allIngredients);
+    
     const [enteredIngredient, setEnteredIngredient] = useState('');
     const [allIngredients, setAllIngredients] = useState([]);
     const [currentDetailedIngredient, setCurrentDetailedIngredient] = useState([]);
     const [showDetails, setShowDetails] = useState(false);
 
     const dispatch = useDispatch();
-    // console.log(allIngredients)
+    console.log(typeof allIngredients)
+    console.log(typeof allIngredientsHere)
+    
+    // console.log(allIngredientsHere);
 
     const fetchIngredientFromApi = () => {
 
@@ -45,7 +50,7 @@ const ScreenOne = props => {
         for (var prop in fetchedIngredientList) {
             setAllIngredients(oldArray => [...oldArray, { id: Math.random().toString(), offset: fetchedIngredientList[prop].offset, group: fetchedIngredientList[prop].group, name: fetchedIngredientList[prop].name, ndbno: fetchedIngredientList[prop].ndbno, ds: fetchedIngredientList[prop].ds, manu: fetchedIngredientList[prop].manu }])
         }
-
+        addAllIngredientsHandler()
     }
 
     const addSubmittedIngredientHandler = useCallback(() => {
@@ -53,7 +58,13 @@ const ScreenOne = props => {
         fetchIngredientFromApi();
         dispatch(addSubmittedIngredient(enteredIngredient));
     }, [dispatch, enteredIngredient])
-        ;
+    ;
+
+    const addAllIngredientsHandler = useCallback(() => {
+        // console.log(allIngredients)
+        dispatch(addAllIngredients({ id: Math.random().toString(), value:Math.random().toString() * 20 }));
+    }, [dispatch, allIngredients])
+    ;
 
     const fetchDetailedIngredientFromApi = (id) => {
         // console.log('fetching from onpress event')
@@ -76,11 +87,6 @@ const ScreenOne = props => {
         setShowDetails(true)
     }
 
-
-    const deletedIngredientHandler = useCallback((item) => {
-        dispatch(deleteSubmittedIngredient(item));
-    }, [dispatch, enteredIngredient]);
-
     const ingredientInputHandler = enteredText => {
         setEnteredIngredient(enteredText);
     };
@@ -89,6 +95,7 @@ const ScreenOne = props => {
 
         <ScrollView>
             <View style={styles.container}>
+            <DisplayIngredients allIngredientsHere={allIngredientsHere}  />
                 {showDetails ?
                     <DisplayDetails currentDetailedIngredient={currentDetailedIngredient} />
                     :
@@ -98,9 +105,6 @@ const ScreenOne = props => {
                     </View>
                 }
             </View>
-            <Text>
-
-            </Text>
         </ScrollView>
     );
 };
